@@ -28,7 +28,7 @@ public class servicioLogin {
     public void agregarUsuario(usuario usuario) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into usuario(usuarios,contraseña) values (?, ? )");
+                    .prepareStatement("insert into Usuarios(usuario,contraseña) values (?, ? )");
             // Parameters start with 1
             preparedStatement.setString(1, usuario.getUsuario());
             preparedStatement.setString(2, usuario.getContraseña());
