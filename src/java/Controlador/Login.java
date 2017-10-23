@@ -33,16 +33,7 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-
-
-            
-        }
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -56,7 +47,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       
     }
 
     /**
@@ -70,26 +61,24 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
         
 
   boolean resultado = false;
-//        String respuesta = null;
+
             String usuario = request.getParameter("usuario");
             String contraseña = request.getParameter("contra");
 
         if (usuario.trim().length() > 0 && contraseña.trim().length() > 0) {
             try {
                 resultado = true;
-                usuario us = new usuario();
+                usuario us = new usuario(usuario, contraseña);
                 servicioLogin s = new servicioLogin();
                 s.agregarUsuario(us);
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            
-            
             RequestDispatcher rq = request.getRequestDispatcher("login.jsp");
 
             if (resultado == true) {
