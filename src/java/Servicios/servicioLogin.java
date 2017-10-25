@@ -11,7 +11,9 @@ import VO.usuario;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -21,17 +23,14 @@ import java.util.ArrayList;
 public class servicioLogin {
     private Connection connection;
 
-    public servicioLogin() throws IOException, SQLException {
-        connection = conexion.getConnection();
-    }
-
-    public void agregarUsuario(usuario usuario) {
+public void agregarContexto(usuario usu) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into usuario(usuarios,contraseña) values (?, ? )");
+                    .prepareStatement("");
             // Parameters start with 1
-            preparedStatement.setString(1, usuario.getUsuario());
-            preparedStatement.setString(2, usuario.getContraseña());
+            preparedStatement.setString(1, usu.getContraseña());
+            preparedStatement.setString(2, usu.getContraseña());
+          
             
             preparedStatement.executeUpdate();
 
@@ -40,6 +39,35 @@ public class servicioLogin {
             System.out.println("agrego algo");
         }
     }
+   
+//            
+
     
+            
+              public ArrayList<usuario> busqueda() {
+        ArrayList<usuario> usuarios = new ArrayList<usuario>();
+        try {
+            System.out.println("LLegue hasta aca");
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("select * from usuario where usuarios ='fernando' or usuarios='fabiola' and contraseña='localAGR'");
+            while (rs.next()) {
+                
+                usuario u=new usuario();
+
+                u.setUsuario(rs.getString("usuario "));
+                u.setContraseña(rs.getString("contrasena"));
+               
+                usuarios.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    
+    
+}
+
 }
 

@@ -25,9 +25,6 @@ import javax.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
 
-   
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -40,7 +37,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
     /**
@@ -54,33 +51,18 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession sesion=request.getSession();
-        
-        
-        
-        
-            boolean resultado = false;
 
-            String usuario = request.getParameter("usuario");
-            String contraseña = request.getParameter("contra");
-            
-            if(usuario.equals(request.getParameter("usuario"))&& 
-                    contraseña.equals(request.getParameter("contra"))&&sesion.getAttribute("usuario")==null){
-                
-                
-                
-            }
+        HttpSession sesion = request.getSession();
 
+        boolean resultado = false;
+
+        String usuario = request.getParameter("usuario");
+        String contraseña = request.getParameter("contra");
         if (usuario.trim().length() > 0 && contraseña.trim().length() > 0) {
-            try {
-                resultado = true;
-                usuario us = new usuario(usuario, contraseña);
-                servicioLogin s = new servicioLogin();
-                s.agregarUsuario(us);
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            resultado = true;
+            usuario us = new usuario(usuario, contraseña);
+            servicioLogin s = new servicioLogin();
+            s.busqueda();
 
             RequestDispatcher rq = request.getRequestDispatcher("login.jsp");
 
@@ -91,12 +73,24 @@ public class Login extends HttpServlet {
             }
 
             rq.forward(request, response);
-   
+
         } else {
             request.setAttribute("resultado", false);
         }
+        
+//        if (usuario.equals(request.getParameter("usuario"))
+//                && contraseña.equals(request.getParameter("contra")) && sesion.getAttribute("usuario") == null) {
+//            //si conincide usuario y contrasea y si no hay secion iniciada
+//            sesion.setAttribute("usuario", usuario);
+//            System.out.println("iniciado secion correctamente");
+//
+//        }else{
+//            System.out.println("no se ha iniciado secion ");
+//        }
+
+        
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -13,7 +13,7 @@ public class usuario {
 
     private String usuario;
     private String contraseña;
-
+    private int id;
 
     public usuario(String usuario, String contraseña) {
         this.usuario = usuario;
@@ -37,6 +37,14 @@ public class usuario {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 }
